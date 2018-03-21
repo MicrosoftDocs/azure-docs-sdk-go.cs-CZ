@@ -8,11 +8,11 @@ ms.date: 02/08/2018
 ms.topic: quickstart
 ms.devlang: go
 manager: routlaw
-ms.openlocfilehash: e530d944deca40e9e6c29b6c2768e2367822714e
-ms.sourcegitcommit: aaa8c37880332625f858a38f5918e6cf581bf48d
+ms.openlocfilehash: ae460dbf21b13c40f3d564274f8b790afe005aae
+ms.sourcegitcommit: af3473779cd7c2978f290fbdc51ee15eb1130840
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/15/2018
+ms.lasthandoff: 03/15/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Rychlý start: Nasazení virtuálního počítače Azure ze šablony s využitím sady Azure SDK for Go
 
@@ -32,7 +32,7 @@ Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžad
 
 ## <a name="create-a-service-principal"></a>Vytvoření instančního objektu
 
-Pokud se chcete přihlásit neinteraktivně pomocí aplikace, potřebujete instanční objekt. Instanční objekty jsou součástí ověřování na základě rolí (RBAC), které vytvoří jedinečnou identitu uživatele. Pokud chcete vytvořit nový instanční objekt s využitím CLI, spusťte následující příkaz:
+Pokud se chcete přihlásit neinteraktivně pomocí aplikace, potřebujete instanční objekt. Instanční objekty jsou součástí řízení přístupu na základě role (RBAC), které vytvoří jedinečnou identitu uživatele. Pokud chcete vytvořit nový instanční objekt s využitím CLI, spusťte následující příkaz:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
@@ -79,7 +79,7 @@ Musíte také upravit hodnotu v poli `vm-quickstart-params.json`.
     }
 ```
 
-* `vm_password`: Heslo pro uživatelský účet virtuálního počítače. Musí mít délku 6 až 72 znaků a obsahovat 3 z následujících znaků:
+* `vm_password`: Heslo pro uživatelský účet virtuálního počítače. Musí mít délku 12 až 72 znaků a obsahovat 3 z následujících znaků:
   * Malé písmeno
   * Velké písmeno
   * Číslo
