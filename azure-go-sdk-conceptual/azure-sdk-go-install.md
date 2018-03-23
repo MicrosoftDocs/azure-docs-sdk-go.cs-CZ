@@ -1,18 +1,17 @@
 ---
 title: Instalace Azure SDK for Go
 description: Postup instalace, vendorizace a konfigurace sady Azure SDK for Go
-keywords: azure, sdk, go, golang, azure sdk
 author: sptramer
 ms.author: sttramer
 ms.date: 01/30/2018
 ms.topic: article
 ms.devlang: go
-manager: routlaw
-ms.openlocfilehash: 7fc0a3ff71b0b06f616ae43cff311352fe873345
-ms.sourcegitcommit: 890f5f01a70e7e376e6bb98a2030afbfc016f538
+manager: carmonm
+ms.openlocfilehash: 580daf4f2e91eabf97e3acd21bda183c559b57da
+ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/01/2018
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="installing-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go
 
