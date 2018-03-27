@@ -19,7 +19,18 @@ items:
         href: /azure/mysql/connect-go?toc=%2fgo%2fazure%2ftoc.json
       - name: Azure SQL Database
         href: /azure/sql-database/sql-database-connect-query-go?toc=%2fgo%2fazure%2ftoc.json
-  - name: Ukázky
-    href: 'http://github.com/azure-samples/azure-sdk-for-go-samples'
+  - name: Ukázky kódu Go
+    items:
+      - name: Ověřování a Active Directory
+        href: azure-sdk-go-auth-aad-samples.md
+      - name: Kontejnery
+        href: azure-sdk-go-containers-samples.md
+      - name: Výpočetní funkce a sítě
+        href: azure-sdk-go-compute-networking-samples.md
+      - name: Azure SQL Database
+        href: azure-sdk-go-sql-database-samples.md
+      - name: Všechny ukázky v Go
+        href: 'http://github.com/azure-samples/azure-sdk-for-go-samples'
+    href: null
   - name: API – referenční informace
     href: 'https://godoc.org/github.com/Azure/azure-sdk-for-go'
