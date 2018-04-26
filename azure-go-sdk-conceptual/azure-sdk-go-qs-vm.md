@@ -3,15 +3,15 @@ title: Nasazení virtuálního počítače Azure z Go
 description: Nasazení virtuálního počítače Azure s využitím sady Azure SDK for Go
 author: sptramer
 ms.author: sttramer
-ms.date: 02/08/2018
+ms.date: 04/03/2018
 ms.topic: quickstart
 ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 46a1243ff2ff6bfcf3831e2cea3137c1f6051c78
-ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.openlocfilehash: 565580e9e6c6ced543bd00bbaa01383834d9a41c
+ms.sourcegitcommit: 2b2884ea7673c95ba45b3d6eec647200e75bfc5b
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/23/2018
+ms.lasthandoff: 04/19/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Rychlý start: Nasazení virtuálního počítače Azure ze šablony s využitím sady Azure SDK for Go
 
@@ -23,7 +23,7 @@ Na konci tohoto rychlého startu budete mít spuštěný virtuální počítač,
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžadovat CLI verze 2.0.24 nebo novější. Spusťte `az --version` a zkontrolujte, jestli vaše instalace CLI splňuje tento požadavek. Pokud potřebujete instalaci nebo upgrade, přečtěte si téma [Instalace Azure CLI 2.0](/cli/azure/install-azure-cli).
+Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžadovat CLI verze __2.0.28__ nebo novější. Spusťte `az --version` a zkontrolujte, jestli vaše instalace CLI splňuje tento požadavek. Pokud potřebujete instalaci nebo upgrade, přečtěte si téma [Instalace Azure CLI 2.0](/cli/azure/install-azure-cli).
 
 ## <a name="install-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go 
 
@@ -31,69 +31,35 @@ Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžad
 
 ## <a name="create-a-service-principal"></a>Vytvoření instančního objektu
 
+
 Pokud se chcete přihlásit neinteraktivně pomocí aplikace, potřebujete instanční objekt. Instanční objekty jsou součástí řízení přístupu na základě role (RBAC), které vytvoří jedinečnou identitu uživatele. Pokud chcete vytvořit nový instanční objekt s využitím CLI, spusťte následující příkaz:
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart
+az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
 ```
 
-__Nezapomeňte__ ve výstupu zaznamenat hodnoty `appId`, `password` a `tenant`. Aplikace tyto hodnoty používá k ověření pomocí Azure.
-
-Další informace o vytváření a správě instančních objektů s využitím Azure CLI 2.0 najdete v tématu [Vytvoření instančního objektu Azure pomocí Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
+Nastavte proměnnou prostředí `AZURE_AUTH_LOCATION` na úplnou cestu k tomuto souboru. Sada SDK pak vyhledá a načte přihlašovací údaje přímo z tohoto souboru bez nutnosti provádět změny nebo zaznamenávat informace z instančního objektu.
 
 ## <a name="get-the-code"></a>Získání kódu
 
 K získání kódu tohoto rychlého startu a všech jeho závislostí použijte `go get`.
 
 ```bash
-go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm/...
+go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/deploy-vm/...
 ```
 
-Tento kód se zkompiluje, ale nefunguje správně, dokud nezadáte informace o vašem účtu Azure a vytvořeném instančním objektu. V `main.go` je proměnná `config`, která obsahuje strukturu `authInfo`. V této struktuře je potřeba nahradit hodnoty příslušných polí, aby ověřování fungovalo správně.
-
-```go
-    config = authInfo{ // Your application credentials
-        TenantID:               "", // Azure account tenantID
-        SubscriptionID:         "", // Azure subscription subscriptionID
-        ServicePrincipalID:     "", // Service principal appId
-        ServicePrincipalSecret: "", // Service principal password/secret
-    }
-```
-
-* `SubscriptionID`: Vaše ID předplatného, které můžete zjistit pomocí příkazu CLI
-
-  ```azurecli-interactive
-  az account show --query id -o tsv
-  ```
-
-* `TenantID`: Vaše ID tenanta, hodnota `tenant` zaznamenaná při vytváření instančního objektu
-* `ServicePrincipalID`: Hodnota `appId` zaznamenaná při vytváření instančního objektu
-* `ServicePrincipalSecret`: Hodnota `password` zaznamenaná při vytváření instančního objektu
-
-Musíte také upravit hodnotu v poli `vm-quickstart-params.json`.
-
-```json
-    "vm_password": {
-        "value": "_"
-    }
-```
-
-* `vm_password`: Heslo pro uživatelský účet virtuálního počítače. Musí mít délku 12 až 72 znaků a obsahovat 3 z následujících znaků:
-  * Malé písmeno
-  * Velké písmeno
-  * Číslo
-  * Symbol
+Pokud je proměnná `AZURE_AUTH_LOCATION` správně nastavená, nemusíte provádět žádné úpravy zdrojového kódu. Když se program spustí, načte všechny potřebné ověřovací údaje z této proměnné.
 
 ## <a name="running-the-code"></a>Spuštění kódu
 
 ke spuštění tohoto rychlého startu použijte příkaz `go run`.
 
 ```bash
-cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm
+cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/deploy-vm
 go run main.go
 ```
 
-Jestliže při nasazení dojde k selhání, dostanete zprávu informující, že nastal problém, ale bez jakýchkoli konkrétních podrobností. S využitím Azure CLI můžete podrobné informace o selhání nasazení získat pomocí následujícího příkazu:
+Pokud při nasazení dojde k selhání, zobrazí se zpráva informující, že došlo k problému. Zpráva však nemusí obsahovat dostatek podrobností. S využitím Azure CLI můžete úplné podrobnosti o selhání nasazení získat pomocí následujícího příkazu:
 
 ```azurecli-interactive
 az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
@@ -113,20 +79,9 @@ az group delete -n GoVMQuickstart
 
 To, co kód tohoto rychlého startu dělá, je rozdělené do bloku proměnných a několika malých funkcí, které tady probereme.
 
-### <a name="variable-assignments-and-structs"></a>Struktury a přiřazení proměnných
+### <a name="variables-constants-and-types"></a>Proměnné, konstanty a typy
 
-Vzhledem k tomu, že rychlý start je samostatný, využívá globální proměnné (a ne možnosti příkazového řádku nebo proměnné prostředí).
-
-```go
-type authInfo struct {
-        TenantID               string
-        SubscriptionID         string
-        ServicePrincipalID     string
-        ServicePrincipalSecret string
-}
-```
-
-Struktura `authInfo` je deklarovaná k zapouzdření všech informací potřebných pro ověřování s využitím služeb Azure.
+Vzhledem k tomu, že je tento rychlý start samostatný, využívá globální konstanty a proměnné.
 
 ```go
 const (
@@ -138,54 +93,51 @@ const (
     parametersFile = "vm-quickstart-params.json"
 )
 
+// Information loaded from the authorization file to identify the client
+type clientInfo struct {
+    SubscriptionID string
+    VMPassword     string
+}
+
 var (
-    config = authInfo{ // Your application credentials
-        TenantID:               "", // Azure account tenantID
-        SubscriptionID:         "", // Azure subscription subscriptionID
-        ServicePrincipalID:     "", // Service principal appId
-        ServicePrincipalSecret: "", // Service principal password/secret
-    }
-
-    ctx = context.Background()
-
-    token *adal.ServicePrincipalToken
+    ctx        = context.Background()
+    clientData clientInfo
+    authorizer autorest.Authorizer
 )
 ```
 
 Jsou deklarované hodnoty, které poskytují názvy vytvořených prostředků. Je tady také zadané umístění, které můžete změnit, abyste viděli, jak se nasazení chovají v jiných datových centrech. Ne každé datové centrum má k dispozici všechny požadované prostředky.
 
-Konstanty `templateFile` a `parametersFile` odkazují na soubory potřebné pro nasazení. Tokenu instančního objektu se věnujeme později a proměnná `ctx` je [kontext Go](https://blog.golang.org/context) pro síťové operace.
+Typ `clientInfo` se deklaruje za účelem zapouzdření veškerých informací, které je potřeba nezávisle načíst z ověřovacího souboru kvůli nastavení klientů v sadě SDK a nastavení hesla virtuálního počítače.
 
-### <a name="init-and-authorization"></a>init() a autorizace
+Konstanty `templateFile` a `parametersFile` odkazují na soubory potřebné pro nasazení. Objekt `authorizer` nakonfiguruje sada Go SDK pro ověřování a proměnná `ctx` představuje [kontext Go](https://blog.golang.org/context) pro síťové operace.
 
-Metoda `init()` pro kód nastavuje autorizaci. Vzhledem k tomu, že autorizace je předpokladem pro všechno, co je v rychlém startu, má smysl, aby byla součástí inicializace. 
+### <a name="authentication-and-initialization"></a>Ověřování a inicializace
+
+Funkce `init` nastaví ověřování. Vzhledem k tomu, že ověřování je předpokladem pro všechno, co je v rychlém startu, má smysl, aby bylo součástí inicializace. Z ověřovacího souboru se také načtou některé informace potřebné ke konfiguraci klientů a virtuálního počítače.
 
 ```go
-// Authenticate with the Azure services over OAuth, using a service principal.
 func init() {
-    oauthConfig, err := adal.NewOAuthConfig(azure.PublicCloud.ActiveDirectoryEndpoint, config.TenantID)
+    var err error
+    authorizer, err = auth.NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
     if err != nil {
-        log.Fatalf("Failed to get OAuth config: %v\n", err)
+        log.Fatalf("Failed to get OAuth config: %v", err)
     }
-    token, err = adal.NewServicePrincipalToken(
-        *oauthConfig,
-        config.ServicePrincipalID,
-        config.ServicePrincipalSecret,
-        azure.PublicCloud.ResourceManagerEndpoint)
-    if err != nil {
-        log.Fatalf("faled to get token: %v\n", err)
-    }
+
+    authInfo, err := readJSON(os.Getenv("AZURE_AUTH_LOCATION"))
+    clientData.SubscriptionID = (*authInfo)["subscriptionId"].(string)
+    clientData.VMPassword = (*authInfo)["clientSecret"].(string)
 }
 ```
 
-Tento kód dokončuje dva kroky pro autorizaci:
+Nejprve se zavolá metoda [auth.NewAuthorizerFromFile](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewAuthorizerFromFile), která načte ověřovací údaje ze souboru v umístění `AZURE_AUTH_LOCATION`. Tento soubor se pak ručně načte funkcí `readJSON` (tady jsme ji vynechali) a přetáhnou se dvě hodnoty potřebné ke spuštění zbytku programu: ID předplatného klienta a tajný klíč instančního objektu, který se použije také jako heslo virtuálního počítače.
 
-* Informace o konfiguraci OAuth pro `TenantID` se načtou z Azure Active Directory. Objekt [`azure.PublicCloud`](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#PublicCloud) obsahuje koncové body použité ve standardní konfiguraci Azure.
-* Volá se funkce [`adal.NewServicePrincipalToken()`](https://godoc.org/github.com/Azure/go-autorest/autorest/adal#NewServicePrincipalToken). Tato funkce přebírá informace OAuth spolu s přihlášením instančního objektu a také to, jaký styl správy Azure se používá. Pokud nemáte konkrétní požadavky a víte, co děláte, tato hodnota by vždycky měla být `.ResourceManagerEndpoint`.
+> [!WARNING]
+> Pro zjednodušení tohoto rychlého startu se znovu použije heslo instančního objektu. V produkčním prostředí dbejte na to, abyste __nikdy__ znovu nepoužívali heslo poskytující přístup k vašim prostředkům Azure.
 
 ### <a name="flow-of-operations-in-main"></a>Tok operací v main()
 
-Funkce `main()` je jednoduchá – jenom ukazuje tok operací a provádí kontrolu chyb.
+Funkce `main` je jednoduchá – jenom ukazuje tok operací a provádí kontrolu chyb.
 
 ```go
 func main() {
@@ -193,32 +145,36 @@ func main() {
     if err != nil {
         log.Fatalf("failed to create group: %v", err)
     }
-    log.Printf("created group: %v\n", *group.Name)
+    log.Printf("Created group: %v", *group.Name)
 
-    log.Println("starting deployment")
+    log.Printf("Starting deployment: %s", deploymentName)
     result, err := createDeployment()
     if err != nil {
-        log.Fatalf("Failed to deploy correctly: %v", err)
+        log.Fatalf("Failed to deploy: %v", err)
     }
-    log.Printf("Completed deployment: %v", *result.Name)
+    if result.Name != nil {
+        log.Printf("Completed deployment %v: %v", deploymentName, *result.Properties.ProvisioningState)
+    } else {
+        log.Printf("Completed deployment %v (no data returned to SDK)", deploymentName)
+    }
     getLogin()
 }
 ```
 
 Kód prochází těmito kroky (v uvedeném pořadí):
 
-* Vytvoření skupiny prostředků pro nasazení do (`createGroup()`)
-* Vytvoření nasazení v této skupině (`createDeployment()`)
-* Získání a zobrazení přihlašovacích informací pro nasazený virtuální počítač (`getLogin()`)
+* Vytvoření skupiny prostředků pro nasazení do (`createGroup`)
+* Vytvoření nasazení v této skupině (`createDeployment`)
+* Získání a zobrazení přihlašovacích informací pro nasazený virtuální počítač (`getLogin`)
 
 ### <a name="creating-the-resource-group"></a>Vytvoření skupiny prostředků
 
-Funkce `createGroup()` vytvoří skupinu prostředků. Pohled na tok volání a argumenty ukazuje způsob, jakým jsou interakce služeb v sadě SDK strukturované.
+Funkce `createGroup` vytvoří skupinu prostředků. Pohled na tok volání a argumenty ukazuje způsob, jakým jsou interakce služeb v sadě SDK strukturované.
 
 ```go
 func createGroup() (group resources.Group, err error) {
-        groupsClient := resources.NewGroupsClient(config.SubscriptionID)
-        groupsClient.Authorizer = autorest.NewBearerAuthorizer(token)
+    groupsClient := resources.NewGroupsClient(clientData.SubscriptionID)
+    groupsClient.Authorizer = authorizer
 
         return groupsClient.CreateOrUpdate(
                 ctx,
@@ -230,18 +186,17 @@ func createGroup() (group resources.Group, err error) {
 
 Obecný tok interakcí se službou Azure vypadá takto:
 
-* Vytvořte klienta pomocí metody `service.NewXClient()`, kde `X` je typ prostředku pro `service`, se kterým chcete interagovat. Tato funkce vždycky použije ID předplatného.
+* Vytvořte klienta pomocí metody `service.New*Client()`, kde `*` je typ prostředku pro `service`, se kterým chcete interagovat. Tato funkce vždycky použije ID předplatného.
 * Pro tohoto klienta nastavte metodu autorizace a umožněte mu interagovat se vzdáleným rozhraním API.
 * Použijte volání metody v klientovi odpovídající vzdálenému rozhraní API. Metody klientů služby obvykle používají název prostředku a objekt metadat.
 
-Funkce [`to.StringPtr()`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) se tady používá k převodu typů. Struktury parametrů pro metody sady SDK téměř výhradně přebírají ukazatele, takže tyto metody se poskytují pro usnadnění převodu typů. Úplný seznam a chování převaděčů najdete v dokumentaci k modulu [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to).
+Funkce [`to.StringPtr`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) se tady používá k převodu typů. Parametry pro metody sady SDK téměř výhradně přebírají ukazatele, takže jsou pro usnadnění převodu typů k dispozici pomocné metody. Úplný seznam a chování pomocných převaděčů najdete v dokumentaci k modulu [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to).
 
-Operace `groupsClient.CreateOrUpdate()` vrací ukazatel na datovou strukturu představující skupinu prostředků. Přímá návratová hodnota tohoto druhu indikuje krátce běžící operaci, která je zamýšlená jako synchronní. V další části uvidíte příklad dlouhotrvající operace a způsob interakce s operacemi tohoto typu.
+Metoda `groupsClient.CreateOrUpdate` vrací ukazatel na datový typ představující skupinu prostředků. Přímá návratová hodnota tohoto druhu indikuje krátce běžící operaci, která je zamýšlená jako synchronní. V další části uvidíte příklad dlouhotrvající operace a způsob práce s ní.
 
 ### <a name="performing-the-deployment"></a>Realizace nasazení
 
-Jakmile se vytvoří skupina pro prostředky, je čas spustit nasazení. Tento kód je rozdělený do menších oddílů, aby se zdůraznily různé části jeho logiky.
-
+Jakmile se vytvoří skupina prostředků, je čas spustit nasazení. Tento kód je rozdělený do menších oddílů, aby se zdůraznily různé části jeho logiky.
 
 ```go
 func createDeployment() (deployment resources.DeploymentExtended, err error) {
@@ -253,51 +208,59 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
     if err != nil {
         return
     }
-
+    (*params)["vm_password"] = map[string]string{
+        "value": clientData.VMPassword,
+    }
         // ...
 ```
 
-Soubory nasazení načte `readJSON`, podrobnosti tady neuvádíme. Tato funkce vrátí `*map[string]interface{}`. Tento typ se používá při konstrukci metadat pro volání nasazení prostředků.
+Soubory nasazení načte `readJSON`, podrobnosti tady neuvádíme. Tato funkce vrátí `*map[string]interface{}`. Tento typ se používá při konstrukci metadat pro volání nasazení prostředků. Také se ručně nastaví heslo virtuálního počítače pro parametry nasazení.
 
 ```go
         // ...
-        
-        deploymentsClient := resources.NewDeploymentsClient(config.SubscriptionID)
-        deploymentsClient.Authorizer = autorest.NewBearerAuthorizer(token)
 
-        deploymentFuture, err := deploymentsClient.CreateOrUpdate(
-                ctx,
-                resourceGroupName,
-                deploymentName,
-                resources.Deployment{
-                        Properties: &resources.DeploymentProperties{
-                                Template:   template,
-                                Parameters: params,
-                                Mode:       resources.Incremental,
-                        },
-                },
-        )
-        if err != nil {
-                log.Fatalf("Failed to create deployment: %v", err)
-        }
-        //...
+    deploymentsClient := resources.NewDeploymentsClient(clientData.SubscriptionID)
+    deploymentsClient.Authorizer = authorizer
+
+    deploymentFuture, err := deploymentsClient.CreateOrUpdate(
+        ctx,
+        resourceGroupName,
+        deploymentName,
+        resources.Deployment{
+            Properties: &resources.DeploymentProperties{
+                Template:   template,
+                Parameters: params,
+                Mode:       resources.Incremental,
+            },
+        },
+    )
+    if err != nil {
+        return
+    }
 ```
 
-Tento kód používá stejný vzor jako při vytváření skupiny prostředků. Vytvoří se nový klient, získá možnost ověřovat pomocí Azure a potom se volá metoda. Tato metoda má dokonce stejný název (`CreateOrUpdate`) jako odpovídající metoda pro skupiny prostředků. Tento vzor se v sadě SDK používá opakovaně. Metody, které provádějí podobné úkoly, mají obvykle stejný název.
+Tento kód používá stejný vzor jako vytváření skupiny prostředků. Vytvoří se nový klient, získá možnost ověřovat pomocí Azure a potom se volá metoda. Tato metoda má dokonce stejný název (`CreateOrUpdate`) jako odpovídající metoda pro skupiny prostředků. Tento vzor se používá v celé sadě SDK. Metody, které provádějí podobné úkoly, mají obvykle stejný název.
 
-Největší rozdíl spočívá v návratové hodnotě metody `deploymentsClient.CreateOrUpdate()`. Tato hodnota je objekt `Future`, který využívá [vzor návrhu konstruktů future](https://en.wikipedia.org/wiki/Futures_and_promises). Konstrukty future představují dlouho běžící operace v Azure, na které je možné se příležitostně dotazovat při provádění jiné práce.
+Největší rozdíl spočívá v návratové hodnotě metody `deploymentsClient.CreateOrUpdate`. Tato hodnota je typu [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future), který využívá [vzor návrhu konstruktů future](https://en.wikipedia.org/wiki/Futures_and_promises). Konstrukty future představují dlouhotrvající operace v Azure, které můžete po dokončení dotazovat, zrušit nebo zablokovat.
 
 ```go
         //...
-        err = deploymentFuture.Future.WaitForCompletion(ctx, deploymentsClient.BaseClient.Client)
-        if err != nil {
-                log.Fatalf("Error while waiting for deployment creation: %v", err)
-        }
-        return deploymentFuture.Result(deploymentsClient)
-}
+    err = deploymentFuture.Future.WaitForCompletion(ctx, deploymentsClient.BaseClient.Client)
+    if err != nil {
+        return
+    }
+    deployment, err = deploymentFuture.Result(deploymentsClient)
+
+    // Work around possible bugs or late-stage failures
+    if deployment.Name == nil || err != nil {
+        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
+    }
+    return
 ```
 
-V tomto příkladu je nejlepší počkat na dokončení operace. Čekání v konstruktu future vyžaduje [kontextový objekt](https://blog.golang.org/context) a klienta, který vytvořil objekt Future. Z toho vyplývají dva možné zdroje chyb: chyba způsobená na straně klienta při pokusu o volání metody a reakce na chybu ze serveru. Ta druhá se vrací jako součást volání `deploymentFuture.Result()`.
+V tomto příkladu je nejlepší počkat na dokončení operace. Čekání v konstruktu future vyžaduje [kontextový objekt](https://blog.golang.org/context) a klienta, který vytvořil objekt `Future`. Z toho vyplývají dva možné zdroje chyb: chyba způsobená na straně klienta při pokusu o volání metody a reakce na chybu ze serveru. Ta druhá se vrací jako součást volání `deploymentFuture.Result`.
+
+Pro případné chyby, kdy informace o nasazení můžou být po načtení prázdné, existuje alternativní řešení, a to ruční zavolání metody `deploymentsClient.Get`, která zajistí doplnění dat.
 
 ### <a name="obtaining-the-assigned-ip-address"></a>Získání přiřazené IP adresy
 
@@ -305,35 +268,36 @@ Abyste mohli s nově vytvořeným virtuálním počítačem něco udělat, potř
 
 ```go
 func getLogin() {
-        params, err := readJSON(parametersFile)
-        if err != nil {
-                log.Fatalf("Unable to read parameters. Get login information with `az network public-ip list -g %s", resourceGroupName)
-        }
+    params, err := readJSON(parametersFile)
+    if err != nil {
+        log.Fatalf("Unable to read parameters. Get login information with `az network public-ip list -g %s", resourceGroupName)
+    }
 
-        addressClient := network.NewPublicIPAddressesClient(config.SubscriptionID)
-        addressClient.Authorizer = autorest.NewBearerAuthorizer(token)
-        ipName := (*params)["publicIPAddresses_QuickstartVM_ip_name"].(map[string]interface{})
-        ipAddress, err := addressClient.Get(ctx, resourceGroupName, ipName["value"].(string), "")
-        if err != nil {
-                log.Fatalf("Unable to get IP information. Try using `az network public-ip list -g %s", resourceGroupName)
-        }
+    addressClient := network.NewPublicIPAddressesClient(clientData.SubscriptionID)
+    addressClient.Authorizer = authorizer
+    ipName := (*params)["publicIPAddresses_QuickstartVM_ip_name"].(map[string]interface{})
+    ipAddress, err := addressClient.Get(ctx, resourceGroupName, ipName["value"].(string), "")
+    if err != nil {
+        log.Fatalf("Unable to get IP information. Try using `az network public-ip list -g %s", resourceGroupName)
+    }
 
-        vmUser := (*params)["vm_user"].(map[string]interface{})
-        vmPass := (*params)["vm_password"].(map[string]interface{})
+    vmUser := (*params)["vm_user"].(map[string]interface{})
 
-        log.Printf("Log in with ssh: %s@%s, password: %s",
-                vmUser["value"].(string),
-                *ipAddress.PublicIPAddressPropertiesFormat.IPAddress,
-                vmPass["value"].(string))
+    log.Printf("Log in with ssh: %s@%s, password: %s",
+        vmUser["value"].(string),
+        *ipAddress.PublicIPAddressPropertiesFormat.IPAddress,
+        clientData.VMPassword)
 }
 ```
 
 Tato metoda využívá informace uložené v souboru parametrů. Kód by mohl pro zjištění NIC zadat dotaz přímo virtuálnímu počítači, potom zadat dotaz NIC k získání prostředku IP adresy a nakonec zadat dotaz přímo prostředku IP adresy. To je ale dlouhý řetězec závislostí a operací, které je potřeba vyřešit, a proto je nákladný. Vzhledem k tomu, že informace JSON jsou místní, dají se načíst místo toho.
 
-Hodnoty pro heslo a uživatele virtuálního počítače se také načítají z JSON.
+Z JSON se také načte hodnota pro uživatele virtuálního počítače. Heslo virtuálního počítače se načetlo dříve z ověřovacího souboru.
 
 ## <a name="next-steps"></a>Další kroky
 
 V tomto rychlém startu jste vzali existující šablonu a nasadili ji prostřednictvím Go. Potom jste se přes SSH připojili k nově vytvořenému virtuálnímu počítači a ověřili, že je spuštěný.
 
 Pokud se chcete dál seznamovat s použitím virtuálních počítačů v prostředí Azure s Go, prohlédněte si témata s [ukázkami výpočetních funkcí Azure pro Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute) a [ukázkami správy prostředků Azure pro Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources).
+
+Další informace o dostupných metodách ověřování v sadě SDK a typech ověřování, které podporují, najdete v tématu [Ověřování pomocí sady Azure SDK for Go](azure-sdk-go-authorization.md).

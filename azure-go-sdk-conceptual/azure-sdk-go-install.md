@@ -3,19 +3,19 @@ title: Instalace Azure SDK for Go
 description: Postup instalace, vendorizace a konfigurace sady Azure SDK for Go
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/2018
+ms.date: 03/14/2018
 ms.topic: article
 ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 580daf4f2e91eabf97e3acd21bda183c559b57da
-ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.openlocfilehash: a6a92e080aea1a92f47a9d7083f133ca05a47541
+ms.sourcegitcommit: 26520a8c6e812facb5b9432d68c370fa23c99888
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/23/2018
+ms.lasthandoff: 04/16/2018
 ---
-# <a name="installing-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go
+# <a name="install-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go
 
-Vítá vás Azure SDK for Go! Tato sada SDK umožňuje spravovat a služby Azure a interagovat s nimi z aplikací Go.
+Vítá vás Azure SDK for Go! Sada SDK umožňuje spravovat služby Azure a pracovat s nimi z aplikací Go.
 
 ## <a name="get-the-azure-sdk-for-go"></a>Získání sady Azure SDK for Go
 
@@ -27,7 +27,7 @@ Práce s rozšířeními Azure Storage Blob vyžaduje samostatnou sadu SDK.
 go get -u -d github.com/Azure/azure-storage-blob-go/...
 ```
 
-## <a name="vendoring-the-azure-sdk-for-go"></a>Vendoring sady Azure SDK for Go
+## <a name="vendor-the-azure-sdk-for-go"></a>Vendorizace sady Azure SDK for Go
 
 K vendorizaci sady Azure SDK for Go je možné použít [dep](https://github.com/golang/dep). Z důvodů stability se doporučuje vendoring. Pokud chcete použít podporu `dep`, přidejte `github.com/Azure/azure-sdk-for-go` do části `[[constraint]]` v `Gopkg.toml`. Pokud například chcete vendorizovat verzi `14.0.0`, přidejte následující položku:
 
@@ -37,7 +37,7 @@ name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
 ```
 
-## <a name="including-the-azure-sdk-for-go-in-your-project"></a>Zahrnutí sady Azure SDK for Go do vašeho projektu
+## <a name="include-the-azure-sdk-for-go-in-your-project"></a>Zahrnutí sady Azure SDK for Go do vašeho projektu
 
 Pokud chcete používat služby Azure z kódu Go, naimportujte všechny služby, s nimiž interagujete, a požadované moduly `autorest`.
 Získáte úplný seznam dostupných modulů z GoDoc pro [dostupné služby](https://godoc.org/github.com/Azure/azure-sdk-for-go) a [balíčky AutoRest](https://godoc.org/github.com/Azure/go-autorest). Nejběžnější balíčky, které potřebujete z `go-autorest`:
