@@ -1,4 +1,17 @@
-
+---
+author: sptramer
+ms.author: sttramer
+manager: carmonm
+ms.date: 02/12/2018
+ms.topic: include
+ms.prod: azure
+ms.technology: azure-cli
+ms.openlocfilehash: 78d48eff1dd268b249633d4de7d1a15ac1e69750
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.translationtype: HT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 05/03/2018
+---
 ## <a name="launch-azure-cloud-shell"></a>Spuštění služby Azure Cloud Shell
 
 Azure Cloud Shell je bezplatné interaktivní prostředí, které můžete použít k provedení kroků v tomto článku. Má předinstalované obecné nástroje Azure, které jsou nakonfigurované pro použití s vaším účtem. Stačí kliknout na **Kopírovat** a zkopírovat kód, vložit ho do Cloud Shellu a potom ho spustit stisknutím Enter.  Existuje několik způsobů, jak Cloud Shell spustit:

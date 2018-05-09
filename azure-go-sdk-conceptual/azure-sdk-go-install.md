@@ -3,15 +3,17 @@ title: Instalace Azure SDK for Go
 description: Postup instalace, vendorizace a konfigurace sady Azure SDK for Go
 author: sptramer
 ms.author: sttramer
-ms.date: 03/14/2018
-ms.topic: article
-ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: a6a92e080aea1a92f47a9d7083f133ca05a47541
-ms.sourcegitcommit: 26520a8c6e812facb5b9432d68c370fa23c99888
+ms.date: 03/14/2018
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
+ms.openlocfilehash: ad77bdff881770512a828b19dc7af4821f4a55ad
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go
 
@@ -62,7 +64,7 @@ import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compu
 
 V tuto chvíli se doporučuje použít nejnovější verzi služby, pokud nemáte postupovat jinak.
 
-Pokud potřebujete souhrnný snímek služeb, můžete také vybrat jednu verzi profilu. Jediným uzamčeným profilem momentálně je verze `2017-03-30`, která nemusí mít nejnovější funkce služeb. Profily jsou umístěné v modulu `profiles` a jejich verze má formát `YYYY-MM-DD`. Služby jsou seskupené v příslušné verzi profilu. Pokud chcete například naimportovat modul správy prostředků Azure z profilu `2017-03-09`:
+Pokud potřebujete souhrnný snímek služeb, můžete také vybrat jednu verzi profilu. Jediným uzamčeným profilem momentálně je verze `2017-03-09`, která nemusí mít nejnovější funkce služeb. Profily jsou umístěné v modulu `profiles` a jejich verze má formát `YYYY-MM-DD`. Služby jsou seskupené v příslušné verzi profilu. Pokud chcete například naimportovat modul správy prostředků Azure z profilu `2017-03-09`:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/resources"
