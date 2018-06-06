@@ -9,11 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 2ea44fb8a4fdd6098bb44d3b5092cfbc352b424d
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 1e122ab161766023ea146329a5edb13143699b8b
+ms.sourcegitcommit: b81b17cbb934399c195bfdcb87137aee935f5234
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/03/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34755528"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>Nástroje pro vývojáře, kteří používají Azure SDK for Go
 
@@ -40,10 +41,3 @@ Existuje řada způsobů, jak spravovat závislosti balíčků a provádět vend
 
 > [!div class="nextstepaction"]
 > [Získat správce závislostí dep](https://github.com/tools/godep)
-
-## <a name="telemetry-with-application-insights"></a>Telemetrie s Application Insights
-
-[Application Insights](https://azure.microsoft.com/en-us/services/application-insights/) je analytický produkt, který umožňuje snadno shromažďovat telemetrické informace z vašich aplikací a integruje se s ekosystémem Azure, řešením Visual Studio Team Services a GitHubem. Je možné ho využít v řadě aplikací a Microsoft nabízí Go SDK pro práci s Application Insights.
-
-> [!div class="nextstepaction"]
-> [Získat sadu Application Insights for Go SDK](https://github.com/Microsoft/ApplicationInsights-Go) 
