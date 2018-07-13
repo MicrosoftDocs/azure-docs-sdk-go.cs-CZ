@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 370f5607b89c0044022f7987d06c3a55c9d6f352
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319879"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38066995"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Metody ověřování v sadě Azure SDK for Go
 
@@ -107,7 +107,7 @@ Tyto proměnné se dají načíst z informací o metadatech Azure Stacku. Pokud 
 | Vývojová sada | `https://management.local.azurestack.external/` |
 | Integrované systémy | `https://management.(region).ext-(machine-name).(FQDN)` |
 
-Další informace o použití Azure SDK for Go v Azure Stacku najdete v tématu věnovaném [použití profilů verzí API s Go v Azure Stacku](https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles-go)
+Další informace o použití Azure SDK for Go v Azure Stacku najdete v tématu věnovaném [použití profilů verzí API s Go v Azure Stacku](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go)
 
 
 ## <a name="use-file-based-authentication"></a>Použití ověřování na základě souboru
@@ -131,7 +131,7 @@ Další informace o používání instančních objektů a správě jejich pří
 
 ## <a name="use-device-token-authentication"></a>Použití ověřování pomocí tokenu zařízení
 
-Pokud chcete, aby se uživatelé přihlašovali interaktivně, nejlepší způsob, jak to umožnit, je prostřednictvím ověřování pomocí tokenu zařízení. Tento tok ověřování předá uživateli token pro vložení na přihlašovací stránku Microsoftu, kde se pak přihlásí pomocí účtu Azure Active Directory (AAD). Na rozdíl od standardního ověřování pomocí uživatelského jména a hesla tato metoda ověřování podporuje účty s povoleným vícefaktorovým ověřováním.
+Pokud chcete, aby se uživatelé přihlašovali interaktivně, nejlepší způsob, jak to umožnit, je prostřednictvím ověřování pomocí tokenu zařízení. Tento tok ověřování předá uživateli token pro vložení na přihlašovací stránku Microsoftu, kde se pak ověří pomocí účtu Azure Active Directory (AAD). Na rozdíl od standardního ověřování pomocí uživatelského jména a hesla tato metoda ověřování podporuje účty s povoleným vícefaktorovým ověřováním.
 
 Pokud chcete použít ověřování pomocí tokenu zařízení, pomocí funkce [NewDeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewDeviceFlowConfig) vytvořte objekt Authorizer [DeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig). Proces ověřování spustíte zavoláním metody [Authorizer](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig.Authorizer) pro výsledný objekt. Ověřování tokenu zařízení zablokuje provádění programu, dokud se celý tok ověřování nedokončí.
 

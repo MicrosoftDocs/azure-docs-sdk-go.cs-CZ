@@ -10,16 +10,16 @@ ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 1fbcc54df2a2aebce56c5a5800361f3d3aed1ccc
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319930"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38067012"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Rychlý start: Nasazení virtuálního počítače Azure ze šablony s využitím sady Azure SDK for Go
 
-Tento rychlý start se zaměřuje na nasazení prostředků ze šablony s využitím sady Azure SDK for Go. Šablony jsou snímky všech prostředků obsažených ve [skupině prostředků Azure](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview). Při provádění užitečných úloh se průběžně seznámíte s funkcemi a konvencemi této sady SDK.
+Tento rychlý start se zaměřuje na nasazení prostředků ze šablony s využitím sady Azure SDK for Go. Šablony jsou snímky všech prostředků obsažených ve [skupině prostředků Azure](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview). Při provádění užitečných úloh se průběžně seznámíte s funkcemi a konvencemi této sady SDK.
 
 Na konci tohoto rychlého startu budete mít spuštěný virtuální počítač, ke kterému se přihlásíte pomocí uživatelského jména a hesla.
 
@@ -35,8 +35,7 @@ Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžad
 
 ## <a name="create-a-service-principal"></a>Vytvoření instančního objektu
 
-
-Pokud se chcete přihlásit neinteraktivně pomocí aplikace, potřebujete instanční objekt. Instanční objekty jsou součástí řízení přístupu na základě role (RBAC), které vytvoří jedinečnou identitu uživatele. Pokud chcete vytvořit nový instanční objekt s využitím CLI, spusťte následující příkaz:
+Pokud se chcete přihlásit k Azure neinteraktivně pomocí aplikace, potřebujete instanční objekt. Instanční objekty jsou součástí řízení přístupu na základě role (RBAC), které vytvoří jedinečnou identitu uživatele. Pokud chcete vytvořit nový instanční objekt s využitím CLI, spusťte následující příkaz:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
