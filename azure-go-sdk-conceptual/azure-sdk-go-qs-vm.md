@@ -1,21 +1,21 @@
 ---
 title: Nasazení virtuálního počítače Azure z Go
-description: Nasazení virtuálního počítače Azure s využitím sady Azure SDK for Go
+description: Nasazení virtuálního počítače Azure s využitím sady Azure SDK pro Go
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/03/2018
+ms.date: 07/13/2018
 ms.topic: quickstart
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38067012"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039552"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Rychlý start: Nasazení virtuálního počítače Azure ze šablony s využitím sady Azure SDK for Go
 
@@ -27,9 +27,9 @@ Na konci tohoto rychlého startu budete mít spuštěný virtuální počítač,
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžadovat CLI verze __2.0.28__ nebo novější. Spusťte `az --version` a zkontrolujte, jestli vaše instalace CLI splňuje tento požadavek. Pokud potřebujete instalaci nebo upgrade, přečtěte si téma [Instalace Azure CLI 2.0](/cli/azure/install-azure-cli).
+Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžadovat CLI verze __2.0.28__ nebo novější. Spusťte `az --version` a zkontrolujte, jestli vaše instalace CLI splňuje tento požadavek. Pokud potřebujete instalaci nebo upgrade, přečtěte si téma [Instalace Azure CLI](/cli/azure/install-azure-cli).
 
-## <a name="install-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go 
+## <a name="install-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
@@ -242,7 +242,9 @@ Soubory nasazení načte `readJSON`, podrobnosti tady neuvádíme. Tato funkce v
     }
 ```
 
-Tento kód používá stejný vzor jako vytváření skupiny prostředků. Vytvoří se nový klient, získá možnost ověřovat pomocí Azure a potom se volá metoda. Tato metoda má dokonce stejný název (`CreateOrUpdate`) jako odpovídající metoda pro skupiny prostředků. Tento vzor se používá v celé sadě SDK. Metody, které provádějí podobné úkoly, mají obvykle stejný název.
+Tento kód používá stejný vzor jako vytváření skupiny prostředků. Vytvoří se nový klient, získá možnost ověřovat pomocí Azure a potom se volá metoda.
+Tato metoda má dokonce stejný název (`CreateOrUpdate`) jako odpovídající metoda pro skupiny prostředků. Tento vzor se používá v celé sadě SDK.
+Metody, které provádějí podobné úkoly, mají obvykle stejný název.
 
 Největší rozdíl spočívá v návratové hodnotě metody `deploymentsClient.CreateOrUpdate`. Tato hodnota je typu [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future), který využívá [vzor návrhu konstruktů future](https://en.wikipedia.org/wiki/Futures_and_promises). Konstrukty future představují dlouhotrvající operace v Azure, které můžete po dokončení dotazovat, zrušit nebo zablokovat.
 

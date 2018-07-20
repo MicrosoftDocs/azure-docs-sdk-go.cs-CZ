@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: f5e76fc745512a3a52172f560c3a24f510e96feb
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38066995"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039535"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Metody ověřování v sadě Azure SDK for Go
 
@@ -30,19 +30,19 @@ Sada Azure SDK for Go nabízí několik různých typů ověřování s využit�
 | Typ ověřování | Doporučuje se pro situaci |
 |---------------------|---------------------|
 | Ověřování pomocí certifikátů | Máte certifikát X509 nakonfigurovaný pro uživatele nebo instanční objekt Azure Active Directory (AAD). Další informace najdete v tématu [Začínáme s ověřováním pomocí certifikátů v Azure Active Directory]. |
-| Přihlašovací údaje klienta | Máte nakonfigurovaný instanční objekt, který je nastavený pro tuto aplikaci nebo třídu aplikací, do které patří. Další informace najdete v tématu [Vytvoření instančního objektu pomocí Azure CLI 2.0]. |
+| Přihlašovací údaje klienta | Máte nakonfigurovaný instanční objekt, který je nastavený pro tuto aplikaci nebo třídu aplikací, do které patří. Další informace najdete v tématu [Vytvoření instančního objektu pomocí Azure CLI]. |
 | Identita spravované služby | Vaše aplikace se spouští v prostředku Azure nakonfigurovaném s použitím identity spravované služby. Další informace najdete v tématu [Identita spravované služby pro prostředky Azure]. |
 | Token zařízení | Vaše aplikace je určená __pouze__ k interaktivnímu používání a bude mít řadu různých uživatelů, kteří můžou pocházet z několika tenantů AAD. Uživatelé mají přístup k webovému prohlížeči, přes který se můžou přihlásit. Další informace najdete v tématu [Použití ověřování pomocí tokenu zařízení](#use-device-token-authentication).|
 | Uživatelské jméno a heslo | Máte interaktivní aplikaci, která neumožňuje použití žádné jiné metody ověřování. Vaši uživatelé nemají povolené vícefaktorové ověřování pro přihlášení k AAD. |
 
 > [!IMPORTANT]
 > Pokud používáte jiný typ ověřování než přihlašovací údaje klienta, vaše aplikace musí být zaregistrovaná v Azure Active Directory. Postup najdete v tématu [Integrace aplikací s Azure Active Directory](/azure/active-directory/develop/active-directory-integrating-applications).
-
+>
 > [!NOTE]
 > Pokud nemáte speciální požadavky, vyhněte se ověřování pomocí uživatelského jména a hesla. V situacích, kdy je vhodné použít přihlašování jednotlivých uživatelů, je obvykle možné místo toho použít ověřování pomocí tokenu zařízení.
 
 [Začínáme s ověřováním pomocí certifikátů v Azure Active Directory]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
-[Vytvoření instančního objektu pomocí Azure CLI 2.0]: /cli/azure/create-an-azure-service-principal-azure-cli
+[Vytvoření instančního objektu pomocí Azure CLI]: /cli/azure/create-an-azure-service-principal-azure-cli
 [Identita spravované služby pro prostředky Azure]: /azure/active-directory/managed-service-identity/overview
 
 Tyto typy ověřování jsou dostupné prostřednictvím různých metod. [_Ověřování na základě prostředí_](#use-environment-based-authentication) čte přihlašovací údaje přímo z prostředí programu. [_Ověřování na základě souboru_](#use-file-based-authentication) načítá soubor obsahující přihlašovací údaje instančního objektu. [_Ověřování na základě klienta_](#use-an-authentication-client) používá objekt v kódu Go a přenáší na vás zodpovědnost za zadání přihlašovacích údajů během provádění programu. A konečně, [_ověřování pomocí tokenu zařízení_](#use-device-token-authentication) vyžaduje interaktivní přihlašování uživatelů prostřednictvím webového prohlížeče pomocí tokenu a není možné ho používat s ověřováním na základě prostředí ani souboru.
@@ -54,7 +54,7 @@ Všechny funkce a typy ověřování jsou k dispozici v balíčku `github.com/Az
 
 ## <a name="use-environment-based-authentication"></a>Použití ověřování na základě prostředí
 
-Pokud svou aplikaci spouštíte v přísně kontrolovaném prostředí, například v kontejneru, ověřování na základě prostředí je přirozenou volbou. Před spuštěním aplikace nakonfigurujete příkazové prostředí a sada Go SDK za běhu načte tyto proměnné prostředí a provede ověření v Azure. 
+Pokud svou aplikaci spouštíte v přísně kontrolovaném prostředí, například v kontejneru, ověřování na základě prostředí je přirozenou volbou. Před spuštěním aplikace nakonfigurujete příkazové prostředí a sada Go SDK za běhu načte tyto proměnné prostředí a provede ověření v Azure.
 
 Ověřování na základě prostředí podporuje všechny metody ověřování s výjimkou tokenů zařízení a vyhodnocuje je v následujícím pořadí: přihlašovací údaje klienta, certifikáty, uživatelské jméno a heslo a identita spravované služby. Pokud požadovaná proměnná prostředí není nastavená nebo pokud sada SDK obdrží z ověřovací služby odmítnutí, vyzkouší se další typ ověřování. Pokud sada SDK nedokáže provést ověření z prostředí, vrátí chybu.
 
@@ -109,10 +109,9 @@ Tyto proměnné se dají načíst z informací o metadatech Azure Stacku. Pokud 
 
 Další informace o použití Azure SDK for Go v Azure Stacku najdete v tématu věnovaném [použití profilů verzí API s Go v Azure Stacku](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go)
 
-
 ## <a name="use-file-based-authentication"></a>Použití ověřování na základě souboru
 
-Ověřování na základě souboru pracuje s přihlašovacími údaji klientů pouze v případě, že jsou uložené ve formátu místního souboru vygenerovaném prostřednictvím [Azure CLI 2.0](/cli/azure). Tento soubor můžete jednoduše vytvořit při vytváření nového instančního objektu pomocí parametru `--sdk-auth`. Pokud plánujete používat ověřování na základě souboru, nezapomeňte tento argument zadat při vytváření instančního objektu. Vzhledem k tomu, že rozhraní příkazového řádku vypisuje výstup do `stdout`, přesměrujte výstup do souboru.
+Ověřování na základě souboru pracuje s přihlašovacími údaji klientů jenom v případě, že jsou uložené ve formátu místního souboru vygenerovaném prostřednictvím [Azure CLI](/cli/azure). Tento soubor můžete jednoduše vytvořit při vytváření nového instančního objektu pomocí parametru `--sdk-auth`. Pokud plánujete používat ověřování na základě souboru, nezapomeňte tento argument zadat při vytváření instančního objektu. Vzhledem k tomu, že rozhraní příkazového řádku vypisuje výstup do `stdout`, přesměrujte výstup do souboru.
 
 ```azurecli
 az ad sp create-for-rbac --sdk-auth > azure.auth
@@ -127,7 +126,7 @@ import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
 ```
 
-Další informace o používání instančních objektů a správě jejich přístupových oprávnění najdete v tématu [Vytvoření instančního objektu pomocí Azure CLI 2.0].
+Další informace o používání instančních objektů a správě jejich přístupových oprávnění najdete v tématu [Vytvoření instančního objektu pomocí Azure CLI].
 
 ## <a name="use-device-token-authentication"></a>Použití ověřování pomocí tokenu zařízení
 
