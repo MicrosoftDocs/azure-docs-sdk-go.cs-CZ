@@ -10,12 +10,12 @@ ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 4837572a50ae934e71bfe49d916c01e131bb6d83
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 3b31716ee42c638bab4a6dd99b9eb0d7c07e51a4
+ms.sourcegitcommit: 0f581979216f7c9d4913681a6d9f6fe09af26e43
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319692"
+ms.lasthandoff: 08/02/2018
+ms.locfileid: "39475785"
 ---
 # <a name="azure-sdk-for-go-samples-for-compute-and-networking"></a>Ukázky z Azure SDK for Go pro výpočetní funkce a sítě
 
@@ -26,5 +26,7 @@ Všechny ukázky pro Azure SDK for Go jsou dostupné na [GitHubu](https://github
 | Název | Popis |
 |------|-------------|
 | [network/network](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/network/network.go) | Vytváření, aktualizace a odstraňování síťových prostředků, včetně virtuálních sítí, podsítí a skupiny zabezpečení sítě, a dotazování na ně. |
-| [compute/loadbalancer](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/loadbalancer.go) | Vytváření skupin dostupnosti a dotazování na ně, vytváření virtuálních počítačů s využitím nástroje pro vyrovnávání zatížení. |
-| [compute/compute](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/compute.go) | Vytváření, odstraňování, aktualizace a výkonná správa virtuálních počítačů. Práce s datovými disky a správa disku operačního systému virtuálního počítače. |
+| [compute/vm_disk](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_disk.go) | Vytváření, připojení, odpojení, aktualizace a šifrování datových disků pro virtuální počítač. |
+| [compute/vm](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go) | Vytváření, aktualizace, deaktivace a správa virtuálních počítačů. |
+| [compute/vm_with_availabilityset](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_availabilityset.go) | Vytváření skupin dostupnosti a nástrojů pro vyrovnávání zatížení pro virtuální počítače. |
+| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | Vytváření a správa identit spravované služby (souborů MSI) pro virtuální počítače. |
