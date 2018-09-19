@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 3388359bba791c87025b6ffd0e6b476f95589f73
-ms.sourcegitcommit: 81e97407e6139375bf7357045e818c87a17dcde1
+ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2018
-ms.locfileid: "36262972"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059182"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go
 
@@ -37,9 +37,9 @@ Některé služby Azure mají vlastní sady Go SDK a nejsou zahrnuté v základn
 
 ## <a name="vendor-the-azure-sdk-for-go"></a>Vendorizace sady Azure SDK for Go
 
-K vendorizaci sady Azure SDK for Go je možné použít [dep](https://github.com/golang/dep). Z důvodů stability se doporučuje vendoring. Pokud chcete použít podporu `dep`, přidejte `github.com/Azure/azure-sdk-for-go` do části `[[constraint]]` v `Gopkg.toml`. Pokud například chcete vendorizovat verzi `14.0.0`, přidejte následující položku:
+K vendorizaci sady Azure SDK for Go je možné použít [dep](https://github.com/golang/dep). Z důvodů stability se doporučuje vendoring. Pokud chcete `dep` použít ve vašem vlastním projektu, přidejte `github.com/Azure/azure-sdk-for-go` do oddílu `[[constraint]]` ve vašem souboru `Gopkg.toml`. Pokud například chcete vendorizovat verzi `14.0.0`, přidejte následující položku:
 
-```
+```toml
 [[constraint]]
 name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
@@ -62,13 +62,14 @@ Získáte úplný seznam dostupných modulů z GoDoc pro [dostupné služby](htt
 [autorest/adal]: https://godoc.org/github.com/Azure/go-autorest/autorest/adal
 [autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
-Moduly pro služby Azure mají verze nezávislé na příslušných rozhraních API SDK. Tyto verze jsou součástí cesty pro import modulu a jsou buď z _verze služby_, nebo z _profilu_. V současné době se doporučuje, abyste pro vývoj i vydání použili konkrétní verzi služby. Služby jsou umístěné v modulu `services`. Úplná cesta pro import je název služby, za kterým následuje verze ve formátu `YYYY-MM-DD` a potom znovu název služby. Pokud například chcete zahrnout verzi `2017-03-30` služby Compute:
+Balíčky Go a služby Azure mají verze nezávislé na sobě. Verze služeb jsou součástí cesty pro import modulu (pod modulem `services`). Úplnou cestu pro modul tvoří název příslušné služby, za kterým následuje verze ve formátu `YYYY-MM-DD` a potom znovu název služby. Pokud například chcete importovat verzi `2017-03-30` služby Compute:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
 ```
 
-V tuto chvíli se doporučuje použít nejnovější verzi služby, pokud nemáte postupovat jinak.
+Při zahájení vývoje doporučujeme používat nejnovější verzi služby a zachovat její konzistenci.
+Mezi jednotlivými verzemi může dojít ke změně požadavků na službu, které by mohly způsobit narušení vašeho kódu, a to i když během této doby nejsou žádné aktualizace sady Go SDK.
 
 Pokud potřebujete souhrnný snímek služeb, můžete také vybrat jednu verzi profilu. Jediným uzamčeným profilem momentálně je verze `2017-03-09`, která nemusí mít nejnovější funkce služeb. Profily jsou umístěné v modulu `profiles` a jejich verze má formát `YYYY-MM-DD`. Služby jsou seskupené v příslušné verzi profilu. Pokud chcete například naimportovat modul správy prostředků Azure z profilu `2017-03-09`:
 

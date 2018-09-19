@@ -4,24 +4,26 @@ description: Nasazení virtuálního počítače Azure s využitím sady Azure S
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/13/2018
+ms.date: 09/05/2018
 ms.topic: quickstart
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
-ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
+ms.openlocfilehash: a7970be0857fd414d776241b033af0c23457790c
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/14/2018
-ms.locfileid: "39039552"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059131"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Rychlý start: Nasazení virtuálního počítače Azure ze šablony s využitím sady Azure SDK for Go
 
-Tento rychlý start se zaměřuje na nasazení prostředků ze šablony s využitím sady Azure SDK for Go. Šablony jsou snímky všech prostředků obsažených ve [skupině prostředků Azure](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview). Při provádění užitečných úloh se průběžně seznámíte s funkcemi a konvencemi této sady SDK.
+V tomto rychlém startu se dozvíte, jak nasadit prostředky z šablony Azure Resource Manageru pomocí sady Azure SDK pro Go. Šablony jsou snímky všech prostředků obsažených ve [skupině prostředků Azure](/azure/azure-resource-manager/resource-group-overview). Průběžně se seznámíte s funkcemi a konvencemi této sady SDK.
 
 Na konci tohoto rychlého startu budete mít spuštěný virtuální počítač, ke kterému se přihlásíte pomocí uživatelského jména a hesla.
+
+> [!NOTE]
+> Pokud se chcete podívat na vytvoření virtuálního počítače v Go bez použití šablony Resource Manageru, tady je [imperativní ukázka](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go), která demonstruje sestavení a konfiguraci všech prostředků virtuálního počítače s využitím sady SDK. Použití šablony v této ukázce umožňuje zaměřit se na konvence SDK a nezacházet příliš do podrobností o architektuře služeb Azure.
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
@@ -38,7 +40,7 @@ Pokud používáte místní instalaci Azure CLI, bude tento rychlý start vyžad
 Pokud se chcete přihlásit k Azure neinteraktivně pomocí aplikace, potřebujete instanční objekt. Instanční objekty jsou součástí řízení přístupu na základě role (RBAC), které vytvoří jedinečnou identitu uživatele. Pokud chcete vytvořit nový instanční objekt s využitím CLI, spusťte následující příkaz:
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
+az ad sp create-for-rbac --sdk-auth > quickstart.auth
 ```
 
 Nastavte proměnnou prostředí `AZURE_AUTH_LOCATION` na úplnou cestu k tomuto souboru. Sada SDK pak vyhledá a načte přihlašovací údaje přímo z tohoto souboru bez nutnosti provádět změny nebo zaznamenávat informace z instančního objektu.
@@ -62,13 +64,7 @@ cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/dep
 go run main.go
 ```
 
-Pokud při nasazení dojde k selhání, zobrazí se zpráva informující, že došlo k problému. Zpráva však nemusí obsahovat dostatek podrobností. S využitím Azure CLI můžete úplné podrobnosti o selhání nasazení získat pomocí následujícího příkazu:
-
-```azurecli-interactive
-az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
-```
-
-Pokud je nasazení úspěšné, zobrazí se zpráva s uvedením uživatelského jména, IP adresy a hesla pro přihlášení na nově vytvořený virtuální počítač. Připojte se k tomuto počítači přes SSH a potvrďte, že je zprovozněný.
+Pokud je nasazení úspěšné, zobrazí se zpráva s uvedením uživatelského jména, IP adresy a hesla pro přihlášení na nově vytvořený virtuální počítač. Připojte se k tomuto počítači přes SSH a podívejte se, jestli je v provozu. 
 
 ## <a name="cleaning-up"></a>Čištění
 
@@ -77,6 +73,18 @@ Prostředky vytvořené v rámci tohoto rychlého startu můžete vyčistit odst
 ```azurecli-interactive
 az group delete -n GoVMQuickstart
 ```
+
+Odstraňte také instanční objekt, který se vytvořil. Soubor `quickstart.auth` obsahuje klíč JSON pro `clientId`. Zkopírujte tuto hodnotu do proměnné prostředí `CLIENT_ID_VALUE` a spusťte následující příkaz rozhraní příkazového řádku Azure:
+
+```azurecli-interactive
+az ad sp delete --id ${CLIENT_ID_VALUE}
+```
+
+kde zadáte hodnotu pro `CLIENT_ID_VALUE` z `quickstart.auth`.
+
+> [!WARNING]
+> Pokud se instanční objekt pro tuto službu neodstraní, zůstane ve vašem tenantovi Azure Active Directory aktivní.
+> Přestože se název i heslo pro tento instanční objekt vygenerují jako UUID, nezapomeňte dodržovat osvědčené postupy zabezpečení a odstranit všechny nepoužité instanční objekty a aplikace Azure Active Directory.
 
 ## <a name="code-in-depth"></a>Kód podrobněji
 
@@ -111,7 +119,7 @@ var (
 
 Jsou deklarované hodnoty, které poskytují názvy vytvořených prostředků. Je tady také zadané umístění, které můžete změnit, abyste viděli, jak se nasazení chovají v jiných datových centrech. Ne každé datové centrum má k dispozici všechny požadované prostředky.
 
-Typ `clientInfo` se deklaruje za účelem zapouzdření veškerých informací, které je potřeba nezávisle načíst z ověřovacího souboru kvůli nastavení klientů v sadě SDK a nastavení hesla virtuálního počítače.
+Typ `clientInfo` obsahuje informace načtené z ověřovacího souboru kvůli nastavení klientů v sadě SDK a nastavení hesla virtuálního počítače.
 
 Konstanty `templateFile` a `parametersFile` odkazují na soubory potřebné pro nasazení. Objekt `authorizer` nakonfiguruje sada Go SDK pro ověřování a proměnná `ctx` představuje [kontext Go](https://blog.golang.org/context) pro síťové operace.
 
@@ -170,7 +178,7 @@ Kód prochází těmito kroky (v uvedeném pořadí):
 * Vytvoření nasazení v této skupině (`createDeployment`)
 * Získání a zobrazení přihlašovacích informací pro nasazený virtuální počítač (`getLogin`)
 
-### <a name="creating-the-resource-group"></a>Vytvoření skupiny prostředků
+### <a name="create-the-resource-group"></a>Vytvoření skupiny prostředků
 
 Funkce `createGroup` vytvoří skupinu prostředků. Pohled na tok volání a argumenty ukazuje způsob, jakým jsou interakce služeb v sadě SDK strukturované.
 
@@ -197,7 +205,7 @@ Funkce [`to.StringPtr`](https://godoc.org/github.com/Azure/go-autorest/autorest/
 
 Metoda `groupsClient.CreateOrUpdate` vrací ukazatel na datový typ představující skupinu prostředků. Přímá návratová hodnota tohoto druhu indikuje krátce běžící operaci, která je zamýšlená jako synchronní. V další části uvidíte příklad dlouhotrvající operace a způsob práce s ní.
 
-### <a name="performing-the-deployment"></a>Realizace nasazení
+### <a name="perform-the-deployment"></a>Realizace nasazení
 
 Jakmile se vytvoří skupina prostředků, je čas spustit nasazení. Tento kód je rozdělený do menších oddílů, aby se zdůraznily různé části jeho logiky.
 
@@ -254,20 +262,13 @@ Největší rozdíl spočívá v návratové hodnotě metody `deploymentsClient.
     if err != nil {
         return
     }
-    deployment, err = deploymentFuture.Result(deploymentsClient)
-
-    // Work around possible bugs or late-stage failures
-    if deployment.Name == nil || err != nil {
-        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
-    }
-    return
+    return deploymentFuture.Result(deploymentsClient)
+}
 ```
 
 V tomto příkladu je nejlepší počkat na dokončení operace. Čekání v konstruktu future vyžaduje [kontextový objekt](https://blog.golang.org/context) a klienta, který vytvořil objekt `Future`. Z toho vyplývají dva možné zdroje chyb: chyba způsobená na straně klienta při pokusu o volání metody a reakce na chybu ze serveru. Ta druhá se vrací jako součást volání `deploymentFuture.Result`.
 
-Pro případné chyby, kdy informace o nasazení můžou být po načtení prázdné, existuje alternativní řešení, a to ruční zavolání metody `deploymentsClient.Get`, která zajistí doplnění dat.
-
-### <a name="obtaining-the-assigned-ip-address"></a>Získání přiřazené IP adresy
+### <a name="get-the-assigned-ip-address"></a>Získání přiřazené IP adresy
 
 Abyste mohli s nově vytvořeným virtuálním počítačem něco udělat, potřebujete přiřazenou IP adresu. IP adresy jsou vlastní samostatné prostředky Azure, které jsou vázané na prostředky NIC (Network Interface Controller).
 
@@ -301,7 +302,7 @@ Z JSON se také načte hodnota pro uživatele virtuálního počítače. Heslo v
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto rychlém startu jste vzali existující šablonu a nasadili ji prostřednictvím Go. Potom jste se přes SSH připojili k nově vytvořenému virtuálnímu počítači a ověřili, že je spuštěný.
+V tomto rychlém startu jste vzali existující šablonu a nasadili ji prostřednictvím Go. Potom jste se přes SSH připojili k nově vytvořenému virtuálnímu počítači.
 
 Pokud se chcete dál seznamovat s použitím virtuálních počítačů v prostředí Azure s Go, prohlédněte si témata s [ukázkami výpočetních funkcí Azure pro Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute) a [ukázkami správy prostředků Azure pro Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources).
 

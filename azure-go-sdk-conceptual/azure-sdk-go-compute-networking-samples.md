@@ -4,22 +4,21 @@ description: Vybrané ukázky ze sady Azure SDK for Go pro práci s výpočetní
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 03/21/2018
+ms.date: 09/05/2018
 ms.topic: sample
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 3b31716ee42c638bab4a6dd99b9eb0d7c07e51a4
-ms.sourcegitcommit: 0f581979216f7c9d4913681a6d9f6fe09af26e43
+ms.openlocfilehash: d570ad8598ae06633d0010245c207641161ee446
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/02/2018
-ms.locfileid: "39475785"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059080"
 ---
 # <a name="azure-sdk-for-go-samples-for-compute-and-networking"></a>Ukázky z Azure SDK for Go pro výpočetní funkce a sítě
 
-Následující tabulka odkazuje na vybrané ukázky zdrojového kódu Go, které můžete použít pro správu virtuálních počítačů, sítí a podsítí v Azure. 
+Následující tabulka odkazuje na vybrané ukázky, které ukazují správu výpočetních prostředků a prostředků virtuální sítě v sadě Azure SDK pro Go.
 
 Všechny ukázky pro Azure SDK for Go jsou dostupné na [GitHubu](https://github.com/Azure-Samples/azure-sdk-for-go-samples).
 

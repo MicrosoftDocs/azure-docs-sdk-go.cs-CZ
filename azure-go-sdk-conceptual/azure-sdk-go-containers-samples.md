@@ -1,25 +1,24 @@
 ---
 title: Ukázky z Azure SDK for Go pro kontejnery
-description: Vybrané ukázky ze sady Azure SDK for Go pro práci s ACI a AKS
+description: Vybrané ukázky pro práci s Azure Container Instances a Azure Kubernetes Service ze sady Azure SDK pro Go.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 03/21/2018
+ms.date: 09/05/2018
 ms.topic: sample
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: container-service
 ms.devlang: go
-ms.openlocfilehash: 6fad418ec59bfb44433842de2c32a40d2574640e
-ms.sourcegitcommit: 0f581979216f7c9d4913681a6d9f6fe09af26e43
+ms.openlocfilehash: cb57fd9dbb75cab1205e1cb56c45272fe9c8dba6
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/02/2018
-ms.locfileid: "39475819"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059050"
 ---
 # <a name="azure-sdk-for-go-samples-for-containers"></a>Ukázky z Azure SDK for Go pro kontejnery
 
-Následující tabulka odkazuje na vybrané ukázky zdrojového kódu Go, které můžete použít pro práci s kontejnery v Azure s využitím Azure Container Instances (ACI) nebo Azure Kubernetes Service (AKS). 
+Následující tabulka odkazuje na vybrané ukázky, které ukazují správu služeb Azure Container Instances (ACI) a Azure Kubernetes Service (AKS) ze sady Azure SDK pro Go.
 
 Všechny ukázky pro Azure SDK for Go jsou dostupné na [GitHubu](https://github.com/Azure-Samples/azure-sdk-for-go-samples).
 
