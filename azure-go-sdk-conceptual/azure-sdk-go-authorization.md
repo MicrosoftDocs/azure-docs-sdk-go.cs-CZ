@@ -11,12 +11,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 28fd4a4c0832ab19dcf52dc549d0ddc0d1eec6f1
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 8f94b9ba715c32263d324306cce69bd484c05702
+ms.sourcegitcommit: c435f6602524565d340aac5506be5e955e78f16c
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059097"
+ms.lasthandoff: 09/12/2018
+ms.locfileid: "44711970"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Metody ověřování v sadě Azure SDK for Go
 
@@ -30,7 +30,7 @@ Sada Azure SDK for Go nabízí několik různých typů ověřování s využit�
 |---------------------|---------------------|
 | Ověřování pomocí certifikátů | Máte certifikát X509 nakonfigurovaný pro uživatele nebo instanční objekt Azure Active Directory (AAD). Další informace najdete v tématu [Začínáme s ověřováním pomocí certifikátů v Azure Active Directory]. |
 | Přihlašovací údaje klienta | Máte nakonfigurovaný instanční objekt, který je nastavený pro tuto aplikaci nebo třídu aplikací, do které patří. Další informace najdete v tématu [Vytvoření instančního objektu pomocí Azure CLI]. |
-| Identita spravované služby | Vaše aplikace se spouští v prostředku Azure nakonfigurovaném s použitím identity spravované služby. Další informace najdete v tématu [Identita spravované služby pro prostředky Azure]. |
+| Spravované identity pro prostředky Azure | Vaše aplikace se spouští v prostředku Azure nakonfigurovaném s použitím spravované identity. Další informace najdete v tématu [Spravované identity pro prostředky Azure]. |
 | Token zařízení | Vaše aplikace je určená __jenom__ k interaktivnímu použití. Uživatelé mohou mít povolené vícefaktorové ověřování. Uživatelé mají přístup k webovému prohlížeči, přes který se můžou přihlásit. Další informace najdete v tématu [Použití ověřování pomocí tokenu zařízení](#use-device-token-authentication).|
 | Uživatelské jméno a heslo | Máte interaktivní aplikaci, která neumožňuje použití žádné jiné metody ověřování. Vaši uživatelé nemají povolené vícefaktorové ověřování pro přihlášení k AAD. |
 
@@ -42,7 +42,7 @@ Sada Azure SDK for Go nabízí několik různých typů ověřování s využit�
 
 [Začínáme s ověřováním pomocí certifikátů v Azure Active Directory]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
 [Vytvoření instančního objektu pomocí Azure CLI]: /cli/azure/create-an-azure-service-principal-azure-cli
-[Identita spravované služby pro prostředky Azure]: /azure/active-directory/managed-service-identity/overview
+[Spravované identity pro prostředky Azure]: /azure/active-directory/managed-identities-azure-resources/overview
 
 Tyto typy ověřování jsou dostupné prostřednictvím různých metod.
 
@@ -65,7 +65,7 @@ Ověřování na základě prostředí podporuje všechny metody ověřování s
 * Přihlašovací údaje klienta
 * Certifikáty X509
 * Uživatelské jméno a heslo
-* Identita spravované služby
+* Spravované identity pro prostředky Azure
 
 Pokud typ ověřování nemá nastavené hodnoty nebo se odmítne, sada SDK automaticky zkusí další typ ověřování. Pokud už nejsou dostupné žádné další typy, které by se daly vyzkoušet, sada SDK vrátí chybu.
 
@@ -84,7 +84,7 @@ Následující tabulka obsahuje podrobnosti o proměnných prostředí, které j
 | | `AZURE_CLIENT_ID` | ID klienta aplikace. |
 | | `AZURE_USERNAME` | Uživatelské jméno pro přihlášení. |
 | | `AZURE_PASSWORD` | Heslo pro přihlášení. |
-| __Identita spravované služby__ | | Pro ověřování MSI nejsou potřeba žádné přihlašovací údaje. Aplikace musí být spuštěná v prostředku Azure s nakonfigurovaným používáním identity spravované služby. Podrobnosti najdete v tématu [Identita spravované služby pro prostředky Azure]. |
+| __Spravovaná identita__ | | Pro ověřování spravovaných identit nejsou potřeba žádné přihlašovací údaje. Aplikace musí být spuštěná v prostředku Azure s nakonfigurovaným používáním spravovaných identit. Další informace najdete v tématu [Spravované identity pro prostředky Azure]. |
 
 Pokud se potřebujete připojit k jinému cloudu nebo koncovému bodu správy, než je výchozí veřejný cloud Azure, nastavte následující proměnné prostředí. Mezi nejběžnější důvody patří používání služby Azure Stack, cloudu v jiné geografické oblasti nebo modelu nasazení Classic.
 
@@ -168,7 +168,7 @@ Následující tabulka uvádí typy v sadě SDK, které jsou v souladu s rozhran
 |---------------------|-----------------------|
 | Ověřování pomocí certifikátů | [ClientCertificateConfig] |
 | Přihlašovací údaje klienta | [ClientCredentialsConfig] |
-| Identita spravované služby | [MSIConfig] |
+| Spravované identity pro prostředky Azure | [MSIConfig] |
 | Uživatelské jméno a heslo | [UsernamePasswordConfig] |
 
 [ClientCertificateConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#ClientCertificateConfig
