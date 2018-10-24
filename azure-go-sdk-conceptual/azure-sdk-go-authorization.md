@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.technology: azure-sdk-go
 ms.devlang: go
 ms.component: authentication
-ms.openlocfilehash: f5c2c56e43828f0bedad0b5781dc71991ce1fd3e
-ms.sourcegitcommit: 172f81dd6e4c6a275dc8031815aa87cdb488cbf0
+ms.openlocfilehash: c2c3dccfa8da5cfe57fee0b90139002068982560
+ms.sourcegitcommit: 887b15afcdeaf926a5f3d21b64e4045167fd062c
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/26/2018
-ms.locfileid: "47231671"
+ms.lasthandoff: 10/21/2018
+ms.locfileid: "49481978"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Metody ověřování v sadě Azure SDK for Go
 
@@ -70,20 +70,21 @@ Pokud typ ověřování nemá nastavené hodnoty nebo se odmítne, sada SDK auto
 
 Následující tabulka obsahuje podrobnosti o proměnných prostředí, které je potřeba nastavit pro jednotlivé typy ověřování podporované ověřováním na základě prostředí.
 
-| Typ ověřování | Proměnná prostředí | Popis |
-| ------------------- | -------------------- | ----------- |
-| __Přihlašovací údaje klienta__ | `AZURE_TENANT_ID` | ID tenanta Active Directory, do kterého instanční objekt patří. |
-| | `AZURE_CLIENT_ID` | Název nebo ID instančního objektu. |
-| | `AZURE_CLIENT_SECRET` | Tajný klíč přidružený k instančnímu objektu. |
-| __Certifikát__ | `AZURE_TENANT_ID` | ID tenanta Active Directory, ve kterém je certifikát zaregistrovaný. |
-| | `AZURE_CLIENT_ID` | ID klienta aplikace přidruženého k certifikátu. |
-| | `AZURE_CERTIFICATE_PATH` | Cesta k souboru klientského certifikátu. |
-| | `AZURE_CERTIFICATE_PASSWORD` | Heslo pro klientský certifikát. |
-| __Uživatelské jméno a heslo__ | `AZURE_TENANT_ID` | ID tenanta Active Directory, do kterého uživatel patří. |
-| | `AZURE_CLIENT_ID` | ID klienta aplikace. |
-| | `AZURE_USERNAME` | Uživatelské jméno pro přihlášení. |
-| | `AZURE_PASSWORD` | Heslo pro přihlášení. |
-| __Spravovaná identita__ | | Pro ověřování spravovaných identit nejsou potřeba žádné přihlašovací údaje. Aplikace musí být spuštěná v prostředku Azure s nakonfigurovaným používáním spravovaných identit. Další informace najdete v tématu [Spravované identity pro prostředky Azure]. |
+
+|  Typ ověřování   |     Proměnná prostředí     |                                                                                                     Popis                                                                                                      |
+|------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Přihlašovací údaje klienta** |      `AZURE_TENANT_ID`       |                                                                    ID tenanta Active Directory, do kterého instanční objekt patří.                                                                     |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                       Název nebo ID instančního objektu.                                                                                       |
+|                        |    `AZURE_CLIENT_SECRET`     |                                                                                  Tajný klíč přidružený k instančnímu objektu.                                                                                   |
+|    **Certifikát**     |      `AZURE_TENANT_ID`       |                                                                   ID tenanta Active Directory, ve kterém je certifikát zaregistrovaný.                                                                    |
+|                        |      `AZURE_CLIENT_ID`       |                                                                              ID klienta aplikace přidruženého k certifikátu.                                                                              |
+|                        |   `AZURE_CERTIFICATE_PATH`   |                                                                                       Cesta k souboru klientského certifikátu.                                                                                       |
+|                        | `AZURE_CERTIFICATE_PASSWORD` |                                                                                       Heslo pro klientský certifikát.                                                                                       |
+| **Uživatelské jméno a heslo**  |      `AZURE_TENANT_ID`       |                                                                           ID tenanta Active Directory, do kterého uživatel patří.                                                                           |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                              ID klienta aplikace.                                                                                              |
+|                        |       `AZURE_USERNAME`       |                                                                                            Uživatelské jméno pro přihlášení.                                                                                             |
+|                        |       `AZURE_PASSWORD`       |                                                                                            Heslo pro přihlášení.                                                                                             |
+|  **Spravovaná identita**  |                              | Pro ověřování spravovaných identit nejsou potřeba žádné přihlašovací údaje. Aplikace musí být spuštěná v prostředku Azure s nakonfigurovaným používáním spravovaných identit. Další informace najdete v tématu [Spravované identity pro prostředky Azure]. |
 
 Pokud se potřebujete připojit k jinému cloudu nebo koncovému bodu správy, než je výchozí veřejný cloud Azure, nastavte následující proměnné prostředí. Mezi nejběžnější důvody patří používání služby Azure Stack, cloudu v jiné geografické oblasti nebo modelu nasazení Classic.
 
