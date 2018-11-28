@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
-ms.translationtype: HT
+ms.openlocfilehash: 7990ec8bde5622078aa822fc7e66ba5c4384d682
+ms.sourcegitcommit: 3d26b464f196f8675c636ae792637d4c882fb92c
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059182"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52337139"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Instalace Azure SDK for Go
 
@@ -90,7 +90,7 @@ Pokud chcete začít používat sadu Azure SDK for Go, vyzkoušejte si rychlý s
 
 Pokud chcete okamžitě začít pracovat s jinými službami v sadě Go SDK, prohlédněte si dostupný ukázkový kód.
 
-* [Ověřování pomocí služeb Azure](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam)
+* [Ověřování pomocí služeb Azure](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/internal/iam)
 * [Nasazení nových virtuálních počítačů s ověřováním SSH](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)
 * [Nasazení image kontejneru do služby Azure Container Instances](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance)
 * [Vytvoření clusteru ve službě Azure Kubernetes](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice)
